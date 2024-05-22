@@ -1,16 +1,16 @@
+<%- include('parts/header.ejs') %>
+<%- include('parts/navbar.ejs') %>
 
-    <%- include('parts/header.ejs') %> <%- include('parts/navbar.ejs') %>
-
-    <div class="container text-center mt-5">
-        <div class="row justify-content-center">
-          <div class="col-md-6 col-lg-4">
+<div class="container text-center mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
       <h3 class="mb-4">Create Account</h3>
 
-      <% if ( authError) { %>
-        <div class="alert alert-danger"><%= authError %></div>
-        <% } %>
+      <% if (authError) { %>
+      <div class="alert alert-danger"><%= authError %></div>
+      <% } %>
 
-      <form action="/auth/signup" method="post" style="justify-content: center;">
+      <form action="/auth/signup" method="post" style="justify-content: center">
         <div class="mb-3">
           <input
             type="text"
@@ -18,9 +18,18 @@
             class="form-control"
             placeholder="Username"
             value="<%= typeof username !== 'undefined' ? username : '' %>"
-            
           />
+          <% if (typeof validationErrors !== 'undefined') {
+                 validationErrors.forEach(error => { 
+                     if (error.path === 'username') { %>
+          <small class="text-danger d-block" style="text-align: left">
+            <span class="dot">&#8226;</span> <%= error.msg %>
+          </small>
+          <%           }
+                 });
+             } %>
         </div>
+
         <div class="mb-3">
           <input
             type="email"
@@ -28,27 +37,54 @@
             class="form-control"
             placeholder="Email"
             value="<%= typeof email !== 'undefined' ? email : '' %>"
-           
           />
+          <% if (typeof validationErrors !== 'undefined') {
+                 validationErrors.forEach(error => { 
+                     if (error.path === 'email') { %>
+          <small class="text-danger d-block" style="text-align: left">
+            <span class="dot">&#8226;</span> <%= error.msg %>
+          </small>
+          <%           }
+                 });
+             } %>
         </div>
+
         <div class="mb-3">
           <input
             type="password"
             name="password"
             class="form-control"
             placeholder="Password"
-           
           />
+          <% if (typeof validationErrors !== 'undefined') {
+                 validationErrors.forEach(error => { 
+                     if (error.path === 'password') { %>
+          <small class="text-danger d-block" style="text-align: left">
+            <span class="dot">&#8226;</span> <%= error.msg %>
+          </small>
+          <%           }
+                 });
+             } %>
         </div>
+
         <div class="mb-3">
           <input
             type="password"
             name="confirmpassword"
             class="form-control"
             placeholder="Confirm Password"
-        
           />
+          <% if (typeof validationErrors !== 'undefined') {
+                 validationErrors.forEach(error => { 
+                     if (error.path === 'confirmpassword') { %>
+          <small class="text-danger d-block" style="text-align: left">
+            <span class="dot">&#8226;</span> <%= error.msg %>
+          </small>
+          <%           }
+                 });
+             } %>
         </div>
+
         <div class="mb-3">
           <input type="submit" value="SignUp" class="btn btn-primary w-100" />
         </div>
@@ -56,9 +92,7 @@
 
       <div>You already have an account? <a href="/auth/login">Login</a></div>
     </div>
-    </div>
-    </div>
-    
-    <%- include('parts/footer.ejs') %>
-  </body>
-</html>
+  </div>
+</div>
+
+<%- include('parts/footer.ejs') %>

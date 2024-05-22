@@ -1,11 +1,13 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
-
+const { validationResult } = require('express-validator')
 exports.getSignup = (req, res) => {
     res.render('signup', {
-        authError: req.flash('authError')[0]
+        authError: req.flash('authError')[0],
+        validationErrors: req.flash('validationErrors') || [] // Pass validationErrors to the view
     });
 };
+
 
 exports.getLogin = (req, res) => {
     res.render('login', {
@@ -15,6 +17,12 @@ exports.getLogin = (req, res) => {
 
 exports.postSignup = async (req, res, next) => {
     const { email, username, password, confirmpassword } = req.body;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        req.flash('validationErrors', errors.array());
+        return res.redirect('/auth/signup');
+    }
 
     if (password !== confirmpassword) {
         req.flash('authError', 'Passwords do not match.');
