@@ -5,8 +5,8 @@
     <div class="col-md-6 col-lg-4">
       <h3 class="mb-4">Log In</h3>
 
-      <% if ( errorMessage !== null) { %>
-      <div class="alert alert-danger"><%= errorMessage %></div>
+      <% if ( authError) { %>
+      <div class="alert alert-danger"><%= authError %></div>
       <% } %>
       <form action="/auth/login" method="post">
         <div class="form-group mb-3">

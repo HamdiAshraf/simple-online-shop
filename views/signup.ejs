@@ -6,9 +6,9 @@
           <div class="col-md-6 col-lg-4">
       <h3 class="mb-4">Create Account</h3>
 
-      <% if ( errorMessage !== null) { %>
-      <div class="alert alert-danger"><%= errorMessage %></div>
-      <% } %>
+      <% if ( authError) { %>
+        <div class="alert alert-danger"><%= authError %></div>
+        <% } %>
 
       <form action="/auth/signup" method="post" style="justify-content: center;">
         <div class="mb-3">
