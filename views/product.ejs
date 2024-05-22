@@ -1,0 +1,33 @@
+<%- include('parts/header.ejs') %> <%- include('parts/navbar.ejs') %>
+
+<div class="container">
+  <% if(!product){ %>
+  <div class="alert alert-danger">there is no product matches this id</div>
+  <% }else{ %>
+  <div class="row">
+    <div class="col col-12 col-md-6">
+      <img src="/<%= product.image %>" style="width: 50%; height: 50%" />
+      <form action="/cart" method="post">
+        <input
+          type="number"
+          name="amount"
+          class="form-control"
+          style="width: 50%"
+        />
+        <input type="submit" value="Add To Cart" />
+      </form>
+    </div>
+    <div class="col col-12 col-md-6">
+      <!-- <div class="card" style="width: 50%"> -->
+      <!-- <div class="card-body"> -->
+      <h3><%= product.name %></h3>
+      <h5><%= product.price %></h5>
+      <p><%= product.description %></p>
+      <!-- </div>
+              </div> -->
+    </div>
+  </div>
+  <% } %>
+</div>
+
+<%- include('parts/footer.ejs') %>
