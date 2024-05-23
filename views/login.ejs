@@ -1,11 +1,12 @@
-<%- include('parts/header.ejs') %> <%- include('parts/navbar.ejs') %>
+<%- include('parts/header.ejs') %>
+<%- include('parts/navbar.ejs') %>
 
 <div class="container text-center mt-5">
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-4">
       <h3 class="mb-4">Log In</h3>
 
-      <% if ( authError) { %>
+      <% if (authError) { %>
       <div class="alert alert-danger"><%= authError %></div>
       <% } %>
       <form action="/auth/login" method="post">
@@ -18,6 +19,12 @@
             required
             value="<%= typeof email !== 'undefined' ? email : '' %>"
           />
+          <% if (typeof validationErrors !== 'undefined') {
+          validationErrors.forEach(error => { if (error.path === 'email') { %>
+          <small class="text-danger d-block" style="text-align: left">
+            <span class="dot">&#8226;</span> <%= error.msg %>
+          </small>
+          <% } }); } %>
         </div>
         <div class="form-group mb-3">
           <input
@@ -27,6 +34,13 @@
             placeholder="Password"
             required
           />
+
+          <% if (typeof validationErrors !== 'undefined') {
+          validationErrors.forEach(error => { if (error.path === 'password') { %>
+          <small class="text-danger d-block" style="text-align: left">
+            <span class="dot">&#8226;</span> <%= error.msg %>
+          </small>
+          <% } }); } %>
         </div>
         <button type="submit" class="btn btn-primary w-100">Log In</button>
       </form>

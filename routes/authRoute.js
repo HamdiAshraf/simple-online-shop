@@ -31,7 +31,16 @@ router.post('/signup', [
 
 
 
-router.post('/login', postLogin)
+router.post('/login', [
+    check('email').notEmpty().withMessage('email must be provided')
+    .isEmail().withMessage('invalid email format'),
+
+    check('password').notEmpty().withMessage('password must be provided')
+
+    .isLength({ min: 6 }).withMessage('password must be at least 6 characters'),
+
+
+],postLogin)
 
 
 router.all('/logout', logout)
