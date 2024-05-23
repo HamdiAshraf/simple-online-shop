@@ -9,9 +9,9 @@ exports.getProducts = async (req, res, next) => {
         const categories = await Product.find({ category });
 
         if (category && validCategories.includes(category)) {
-            res.render('index', { products: categories });
+            res.render('index', { products: categories, isUser: req.session.userId });
         } else {
-            res.render('index', { products: products });
+            res.render('index', { products: products, isUser: req.session.userId });
         }
 
 

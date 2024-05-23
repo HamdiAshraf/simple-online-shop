@@ -1,15 +1,16 @@
 const { Router } = require('express')
 const { check } = require('express-validator')
 const { getLogin, getSignup, postLogin, postSignup, logout } = require('../controllers/authController')
+const { isAuth, notAuth } = require('../views/guards/auth.guard')
 const router = Router();
 
 
 
-router.get('/login', getLogin)
-router.get('/signup', getSignup)
+router.get('/login', notAuth, getLogin)
+router.get('/signup', notAuth, getSignup)
 
 
-router.post('/signup', [
+router.post('/signup', notAuth, [
     check('username').notEmpty().withMessage('username must be provided'),
     check('email').isEmail().withMessage('invalid email format')
         .notEmpty().withMessage('email must be provided'),
@@ -31,19 +32,19 @@ router.post('/signup', [
 
 
 
-router.post('/login', [
+router.post('/login', notAuth, [
     check('email').notEmpty().withMessage('email must be provided')
-    .isEmail().withMessage('invalid email format'),
+        .isEmail().withMessage('invalid email format'),
 
     check('password').notEmpty().withMessage('password must be provided')
 
-    .isLength({ min: 6 }).withMessage('password must be at least 6 characters'),
 
 
-],postLogin)
+
+], postLogin)
 
 
-router.all('/logout', logout)
+router.all('/logout', isAuth, logout)
 
 
 

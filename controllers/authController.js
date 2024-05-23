@@ -4,7 +4,8 @@ const { validationResult } = require('express-validator')
 exports.getSignup = (req, res) => {
     res.render('signup', {
         authError: req.flash('authError')[0],
-        validationErrors: req.flash('validationErrors') || [] 
+        validationErrors: req.flash('validationErrors') || [],
+        isUser: req.session.userId
     });
 };
 
@@ -12,7 +13,8 @@ exports.getSignup = (req, res) => {
 exports.getLogin = (req, res) => {
     res.render('login', {
         authError: req.flash('authError')[0],
-        validationErrors: req.flash('validationErrors') || [] 
+        validationErrors: req.flash('validationErrors') || [],
+        isUser: req.session.userId
     });
 };
 
@@ -30,7 +32,8 @@ exports.postSignup = async (req, res, next) => {
         return res.render('signup', {
             authError: req.flash('authError')[0],
             email: email,
-            username: username
+            username: username,
+            isUser: req.session.userId // Pass isUser here
         });
     }
     if (!email || !password || !confirmpassword || !username) {
@@ -38,7 +41,8 @@ exports.postSignup = async (req, res, next) => {
         return res.render('signup', {
             authError: req.flash('authError')[0],
             email: email,
-            username: username
+            username: username,
+            isUser: req.session.userId // Pass isUser here
         });
     }
 
@@ -49,7 +53,8 @@ exports.postSignup = async (req, res, next) => {
             return res.render('signup', {
                 authError: req.flash('authError')[0],
                 email: email,
-                username: username
+                username: username,
+                isUser: req.session.userId // Pass isUser here
             });
         }
 
@@ -67,10 +72,12 @@ exports.postSignup = async (req, res, next) => {
         return res.render('signup', {
             authError: req.flash('authError')[0],
             email: email,
-            username: username
+            username: username,
+            isUser: req.session.userId // Pass isUser here
         });
     }
 };
+
 
 exports.postLogin = async (req, res, next) => {
     const { email, password } = req.body;
@@ -86,7 +93,8 @@ exports.postLogin = async (req, res, next) => {
             req.flash('authError', 'Email and password fields cannot be empty.');
             return res.render('login', {
                 authError: req.flash('authError')[0],
-                email: email
+                email: email,
+                isUser: req.session.userId // Pass isUser here
             });
         }
 
@@ -95,7 +103,8 @@ exports.postLogin = async (req, res, next) => {
             req.flash('authError', 'There is no user matching this email.');
             return res.render('login', {
                 authError: req.flash('authError')[0],
-                email: email
+                email: email,
+                isUser: req.session.userId // Pass isUser here
             });
         }
 
@@ -104,7 +113,8 @@ exports.postLogin = async (req, res, next) => {
             req.flash('authError', 'Incorrect password.');
             return res.render('login', {
                 authError: req.flash('authError')[0],
-                email: email
+                email: email,
+                isUser: req.session.userId // Pass isUser here
             });
         }
 
@@ -114,7 +124,8 @@ exports.postLogin = async (req, res, next) => {
         req.flash('authError', 'An error occurred. Please try again.');
         return res.render('login', {
             authError: req.flash('authError')[0],
-            email: email
+            email: email,
+            isUser: req.session.userId // Pass isUser here
         });
     }
 };
