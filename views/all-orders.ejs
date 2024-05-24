@@ -1,0 +1,36 @@
+<%- include('parts/header.ejs') %> <%- include('parts/navbar.ejs') %>
+
+<div class="container mt-5">
+  <h2>All Orders</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% orders.forEach(order => { %>
+      <tr>
+        <td><%= order.productName %></td>
+        <td>$<%= order.price %></td>
+        <td><%= order.amount %></td>
+        <td>
+          <!-- Add cancel button here -->
+          <form action="/order/cancel-order" method="post">
+            <input type="hidden" name="orderId" value="<%= order._id %>" />
+            <button type="submit" class="btn btn-danger">Cancel</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <form method="post" action="/order/cancel-all-orders">
+    <button type="submit" class="btn btn-danger">Cancel All Orders</button>
+  </form>
+</div>
+
+<%- include('parts/footer.ejs') %>

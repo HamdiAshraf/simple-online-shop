@@ -11,6 +11,8 @@ const SessionStore = require('connect-mongodb-session')(session)
 const homeRoute = require('./routes/homeRoute');
 const productRoute = require('./routes/productRoute')
 const authRoute = require('./routes/authRoute')
+const cartRoute = require('./routes/cartRouter')
+const orderRoute = require('./routes/orderRoute')
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -43,6 +45,10 @@ app.set('views', 'views');
 app.use('/', homeRoute);
 app.use('/product', productRoute);
 app.use('/auth', authRoute);
+app.use('/cart', cartRoute);
+app.use('/order', orderRoute);
+
+
 
 
 

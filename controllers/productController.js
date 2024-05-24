@@ -1,14 +1,21 @@
-const Product = require('../models/Product')
+const Product = require('../models/Product');
+const { validationResult } = require('express-validator');
 
 exports.getProductById = async (req, res, next) => {
     const id = req.params.id;
     const product = await Product.findById(id);
-    res.render('product', { product: product })
-}
 
+   
+    const validationErrors = validationResult(req).array();
+
+    res.render('product', { product: product, validationErrors: validationErrors, isUser: req.session.userId });
+};
 
 exports.getFirstProduct = async (req, res, next) => {
-    const product = await Product.findOne({})
+    const product = await Product.findOne({});
+    
+   y
+    const validationErrors = validationResult(req).array();
 
-    res.render('product', { product: product })
-}
+    res.render('product', { product: product, validationErrors: validationErrors, isUser: req.session.userId });
+};

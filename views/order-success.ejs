@@ -1,0 +1,44 @@
+<%- include('parts/header.ejs') %> <%- include('parts/navbar.ejs') %>
+
+<div class="container mt-5">
+  <h2>Order Successfully Placed</h2>
+  <% if (orders && orders.length > 0) { %>
+  <h3>Your Orders</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product Name</th>
+        <th>Amount</th>
+        <th>Cost</th>
+        <th>Status</th>
+        <th>Time</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% orders.forEach(order => { %>
+      <tr>
+        <td><%= order.productName %></td>
+        <td><%= order.amount %></td>
+        <td><%= order.price %></td>
+        <td><%= order.status %></td>
+        <td><%= order.orderDate %></td>
+        <td>
+          <form method="post" action="/order/cancel-order">
+            <input type="hidden" name="orderId" value="<%= order._id %>" />
+            <button type="submit" class="btn btn-danger">Cancel</button>
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <form method="post" action="/order/cancel-all-orders">
+    <button type="submit" class="btn btn-danger">Cancel All Orders</button>
+  </form>
+  <% } else { %>
+  <p>No orders found</p>
+  <% } %>
+</div>
+
+<%- include('parts/footer.ejs') %>

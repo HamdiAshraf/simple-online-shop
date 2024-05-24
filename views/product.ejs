@@ -1,30 +1,49 @@
-<%- include('parts/header.ejs') %> <%- include('parts/navbar.ejs') %>
+<%- include('parts/header.ejs') %>
+<%- include('parts/navbar.ejs') %>
 
 <div class="container">
-  <% if(!product){ %>
-  <div class="alert alert-danger">there is no product matches this id</div>
-  <% }else{ %>
+  <% if(!product) { %>
+  <div class="alert alert-danger">There is no product that matches this ID</div>
+  <% } else { %>
   <div class="row">
+    <% if (validationErrors.length > 0) { %>
+    <div class="alert alert-danger">
+      <% validationErrors.forEach(error => { %>
+      <p><%= error.msg %></p>
+      <% }) %>
+    </div>
+    <% } %>
     <div class="col col-12 col-md-6">
       <img src="/<%= product.image %>" style="width: 50%; height: 50%" />
-      <form action="/cart" method="post">
+      <form action="/cart" method="post" class="mt-auto">
+        <div class="form-group mb-3">
+          <input
+            type="number"
+            name="amount"
+            id="amount"
+            class="form-control"
+            min="1"
+          />
+          <input type="hidden" name="name" value="<%= product.name %>" />
+          <input type="hidden" name="price" value="<%= product.price %>" />
+          <input type="hidden" name="productId" value="<%= product._id %>" />
+          <input
+            type="hidden"
+            name="redirectTo"
+            value="/product/<%= product._id %>"
+          />
+        </div>
         <input
-          type="number"
-          name="amount"
-          class="form-control"
-          style="width: 50%"
+          type="submit"
+          value="Add To Cart"
+          class="btn btn-primary w-100"
         />
-        <input type="submit" value="Add To Cart" />
       </form>
     </div>
     <div class="col col-12 col-md-6">
-      <!-- <div class="card" style="width: 50%"> -->
-      <!-- <div class="card-body"> -->
       <h3><%= product.name %></h3>
       <h5><%= product.price %></h5>
       <p><%= product.description %></p>
-      <!-- </div>
-              </div> -->
     </div>
   </div>
   <% } %>
