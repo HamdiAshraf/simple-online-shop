@@ -8,7 +8,7 @@ exports.orderSuccess = async (req, res) => {
         const orders = await Order.find();
 
         // Render the order success view and pass the orders data
-        res.render('order-success', { orders, isUser: true });
+        res.render('order-success', { orders, isUser: true,pageTitle:'Order-Success' });
     } catch (err) {
         next(err);
 
@@ -93,7 +93,7 @@ exports.submitAddress = async (req, res) => {
 exports.verifyOrder = (req, res) => {
     const { itemId, productName, amount, price } = req.body;
     // Render a page to verify the order with an address input
-    res.render('verify-order', { itemId, productName, amount, price, isUser: true, isAdmin: req.session.isAdmin });
+    res.render('verify-order', { itemId, productName, amount, price, isUser: true, isAdmin: req.session.isAdmin,pageTitle:'verify-order' });
 }
 
 
@@ -103,7 +103,7 @@ exports.allOrders = async (req, res) => {
         const orders = await Order.find();
 
         // Render the page that displays all orders
-        res.render('all-orders', { orders, isUser: true, isAdmin: req.session.isAdmin });
+        res.render('all-orders', { orders, isUser: true, isAdmin: req.session.isAdmin,pageTitle:'All Orders' });
     } catch (error) {
         next(error);
 

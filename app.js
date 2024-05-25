@@ -69,8 +69,9 @@ app.get('/not-admin', (req, res, next) => {
 })
 
 app.use((error, req, res, next) => {
-    res.redirect('/error')
-})
+    console.error('Caught error:', error);
+    res.redirect('/error');
+});
 
 
 

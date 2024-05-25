@@ -6,7 +6,8 @@ exports.getSignup = (req, res) => {
         authError: req.flash('authError')[0],
         validationErrors: req.flash('validationErrors') || [],
         isUser: req.session.userId,
-        isAdmin: false
+        isAdmin: false,
+        pageTitle:'Signup'
     });
 };
 
@@ -16,7 +17,8 @@ exports.getLogin = (req, res) => {
         authError: req.flash('authError')[0],
         validationErrors: req.flash('validationErrors') || [],
         isUser: req.session.userId,
-        isAdmin: false
+        isAdmin: false,
+        pageTitle:'Login'
     });
 };
 

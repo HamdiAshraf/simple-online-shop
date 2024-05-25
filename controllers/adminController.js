@@ -6,7 +6,8 @@ exports.getAddProduct = (req, res, next) => {
     res.render('add-product', {
         validationErrors: req.flash('validationErrors') || [],
         isUser: true,
-        isAdmin: true
+        isAdmin: true,
+        pageTitle:'Add Product'
     });
 };
 
@@ -42,7 +43,8 @@ exports.getProducts = async (req, res, next) => {
         res.render('products', {
             products: products,
             isUser: true,
-            isAdmin: true
+            isAdmin: true,
+            pageTitle:'Products'
         });
     } catch (err) {
              next(err);
@@ -56,7 +58,8 @@ exports.getDashboard = async (req, res, next) => {
         res.render('dashboard', {
             productCount: productCount,
             isUser: true,
-            isAdmin: true
+            isAdmin: true,
+            pageTitle:'Dashboard'
         });
     } catch (err) {
         next(err);
@@ -79,7 +82,7 @@ exports.deleteProduct = async (req, res) => {
 exports.getEditProduct = async (req, res) => {
     try {
         const product = await Product.findById(req.params.productId);
-        res.render('edit-product', { product, isUser: req.session.isUser, isAdmin: req.session.isAdmin });
+        res.render('edit-product', { product, isUser: req.session.isUser, isAdmin: req.session.isAdmin,pageTitle:'Edit Product' });
     } catch (error) {
         next(error);
 

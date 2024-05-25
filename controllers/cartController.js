@@ -5,7 +5,7 @@ exports.getItemsByUserId = async (req, res, next) => {
     try {
         const items = await Cart.find({ userId: req.session.userId }).sort({ timestamp: 1 });
         const validationErrors = req.flash('validationErrors');
-        res.render('cart', { items: items, validationErrors: validationErrors, isUser: true, isAdmin: req.session.isAdmin });
+        res.render('cart', { items: items, validationErrors: validationErrors, isUser: true, isAdmin: req.session.isAdmin,pageTitle:'Cart' });
     } catch (err) {
         next(err);
 

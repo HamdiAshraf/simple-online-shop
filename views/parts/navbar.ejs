@@ -14,32 +14,56 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-3">
         <li class="nav-item">
-          <a class="nav-link active" href="/">Home</a>
+          <a class="nav-link <%= pageTitle==='Home'?'active':'' %>" href="/"
+            >Home</a
+          >
         </li>
         <% if(isUser){ %>
         <li class="nav-item">
-          <a class="nav-link" href="/cart">Cart</a>
+          <a class="nav-link <%= pageTitle==='Cart'?'active':'' %>" href="/cart"
+            >Cart</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/orders">Orders</a>
+          <a
+            class="nav-link <%= pageTitle==='Orders'?'active':'' %>"
+            href="/orders"
+            >Orders</a
+          >
         </li>
 
         <% } %> <%if(!isUser){%>
 
         <li class="nav-item">
-          <a class="nav-link" href="/auth/login">Login</a>
+          <a
+            class="nav-link <%= pageTitle==='Login'?'active':'' %>"
+            href="/auth/login"
+            >Login</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/auth/signup">Signup</a>
+          <a
+            class="nav-link <%= pageTitle==='Signup'?'active':'' %>"
+            href="/auth/signup"
+            >Signup</a
+          >
         </li>
 
         <% }%> <% if(isAdmin){ %>
 
         <li class="nav-item">
-          <a class="nav-link" href="/admin/add">Add Product</a>
+          <a
+            class="nav-link <%= pageTitle==='Add Product'?'active':'' %>"
+            href="/admin/add"
+            >Add Product</a
+          >
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/admin/manageorders">Manage Orders</a>
+          <a
+            class="nav-link <%= pageTitle==='Manage Orders'?'active':'' %>"
+            href="/admin/manageorders"
+            >Manage Orders</a
+          >
         </li>
 
         <% } %>

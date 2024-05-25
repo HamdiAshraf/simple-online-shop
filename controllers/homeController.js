@@ -14,14 +14,16 @@ exports.getProducts = async (req, res, next) => {
                 products: categories,
                 isUser: req.session.userId,
                 validationErrors: validationErrors,
-                isAdmin: req.session.isAdmin
+                isAdmin: req.session.isAdmin,
+                pageTitle:'Home'
             });
         } else {
             res.render('index', {
                 products: products,
                 isUser: req.session.userId,
                 validationErrors: validationErrors,
-                isAdmin: req.session.isAdmin
+                isAdmin: req.session.isAdmin,
+                pageTitle:'Home'
             });
         }
 
