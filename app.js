@@ -51,6 +51,17 @@ app.use('/cart', cartRoute);
 app.use('/order', orderRoute);
 app.use('/admin', adminRoute);
 
+app.get('/error',(req,res,next)=>{
+    res.render('error', {
+        isUser: req.session.isUser,
+        isAdmin: req.session.isAdmin
+
+    })
+})
+
+app.use((error,req,res,next)=>{
+    res.redirect('/error')
+})
 
 
 

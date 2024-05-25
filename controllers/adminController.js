@@ -94,7 +94,6 @@ exports.updateProduct = async (req, res) => {
         await Product.findByIdAndUpdate(req.params.productId, { name, price, category, description });
         res.redirect('/admin/products');
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Error updating product');
+     next(error);
     }
 };
