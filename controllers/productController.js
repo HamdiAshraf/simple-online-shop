@@ -5,17 +5,17 @@ exports.getProductById = async (req, res, next) => {
     const id = req.params.id;
     const product = await Product.findById(id);
 
-   
+
     const validationErrors = validationResult(req).array();
 
-    res.render('product', { product: product, validationErrors: validationErrors, isUser: req.session.userId,isAdmin:req.session.isAdmin });
+    res.render('product', { product: product, validationErrors: validationErrors, isUser: req.session.userId, isAdmin: req.session.isAdmin });
 };
 
 exports.getFirstProduct = async (req, res, next) => {
     const product = await Product.findOne({});
-    
-   y
+
+
     const validationErrors = validationResult(req).array();
 
-    res.render('product', { product: product, validationErrors: validationErrors, isUser: req.session.userId,isAdmin:req.session.isAdmin });
+    res.render('product', { product: product, validationErrors: validationErrors, isUser: req.session.userId, isAdmin: req.session.isAdmin });
 };

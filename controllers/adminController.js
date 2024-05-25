@@ -29,9 +29,9 @@ exports.postAddProduct = async (req, res, next) => {
         await newProduct.save();
         res.redirect('/admin/products'); // Redirect to the product list page after successful save
     } catch (err) {
-        console.error(err); // Log the error for debugging
-        req.flash('validationErrors', [{ msg: 'An error occurred while adding the product.' }]);
-        res.redirect('/admin/add');
+        next(err);
+
+
     }
 };
 
@@ -45,8 +45,8 @@ exports.getProducts = async (req, res, next) => {
             isAdmin: true
         });
     } catch (err) {
-        console.error(err);
-        res.redirect('/admin/dashboard');
+             next(err);
+
     }
 };
 exports.getDashboard = async (req, res, next) => {
@@ -59,8 +59,8 @@ exports.getDashboard = async (req, res, next) => {
             isAdmin: true
         });
     } catch (err) {
-        console.error(err);
-        res.redirect('/admin/products'); // Fallback in case of an error
+        next(err);
+
     }
 };
 
@@ -70,8 +70,8 @@ exports.deleteProduct = async (req, res) => {
         await Product.findByIdAndDelete(req.params.productId);
         res.redirect('/admin/products');
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Error deleting product');
+        next(err);
+
     }
 };
 
@@ -81,8 +81,8 @@ exports.getEditProduct = async (req, res) => {
         const product = await Product.findById(req.params.productId);
         res.render('edit-product', { product, isUser: req.session.isUser, isAdmin: req.session.isAdmin });
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Error retrieving product');
+        next(error);
+
     }
 };
 

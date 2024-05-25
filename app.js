@@ -51,7 +51,8 @@ app.use('/cart', cartRoute);
 app.use('/order', orderRoute);
 app.use('/admin', adminRoute);
 
-app.get('/error',(req,res,next)=>{
+app.get('/error', (req, res, next) => {
+    res.status(500)
     res.render('error', {
         isUser: req.session.isUser,
         isAdmin: req.session.isAdmin
@@ -59,7 +60,15 @@ app.get('/error',(req,res,next)=>{
     })
 })
 
-app.use((error,req,res,next)=>{
+app.get('/not-admin', (req, res, next) => {
+    res.status(403)
+    res.render('not-admin', {
+        isUser: req.session.isUser,
+        isAdmin: false
+    })
+})
+
+app.use((error, req, res, next) => {
     res.redirect('/error')
 })
 

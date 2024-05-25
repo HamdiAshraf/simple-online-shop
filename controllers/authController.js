@@ -73,14 +73,8 @@ exports.postSignup = async (req, res, next) => {
         await user.save();
         res.redirect('/auth/login');
     } catch (err) {
-        req.flash('authError', 'An error occurred. Please try again.');
-        return res.render('signup', {
-            authError: req.flash('authError')[0],
-            email: email,
-            username: username,
-            isUser: req.session.userId,
-            isAdmin: false
-        });
+        next(err);
+
     }
 };
 
@@ -132,13 +126,8 @@ exports.postLogin = async (req, res, next) => {
         req.session.isAdmin = user.isAdmin;
         res.redirect('/');
     } catch (err) {
-        req.flash('authError', 'An error occurred. Please try again.');
-        return res.render('login', {
-            authError: req.flash('authError')[0],
-            email: email,
-            isUser: req.session.userId,
-            isAdmin: false
-        });
+        next(err);
+
     }
 };
 

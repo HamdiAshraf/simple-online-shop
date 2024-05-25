@@ -10,8 +10,8 @@ exports.orderSuccess = async (req, res) => {
         // Render the order success view and pass the orders data
         res.render('order-success', { orders, isUser: true });
     } catch (err) {
-        console.error('Error fetching orders:', err);
-        res.status(500).send('Internal server error');
+        next(err);
+
     }
 }
 
@@ -26,8 +26,8 @@ exports.cancelOrder = async (req, res) => {
         // Redirect to a confirmation page or any other appropriate action
         res.redirect('/order/all-orders');
     } catch (err) {
-        console.error('Error canceling order:', err);
-        res.status(500).send('Internal server error');
+        next(err);
+
     }
 }
 
@@ -40,8 +40,8 @@ exports.cancelAllOrders = async (req, res) => {
         // Redirect to a success page or any other appropriate action
         res.redirect('/order/all-orders');
     } catch (error) {
-        console.error('Error canceling all orders:', error);
-        res.status(500).send('Internal server error');
+        next(error);
+
     }
 }
 
@@ -68,8 +68,8 @@ exports.placeOrder = async (req, res) => {
         res.redirect('/order/order-success');
 
     } catch (err) {
-        console.error('Error placing order:', err);
-        res.status(500).send('Internal server error');
+        next(err);
+
     }
 }
 
@@ -84,8 +84,8 @@ exports.submitAddress = async (req, res) => {
         // Redirect to the page that displays all orders
         res.redirect('/order/all-orders');
     } catch (error) {
-        console.error('Error updating order with address:', error);
-        res.status(500).send('Internal server error');
+        next(error);
+
     }
 }
 
@@ -93,7 +93,7 @@ exports.submitAddress = async (req, res) => {
 exports.verifyOrder = (req, res) => {
     const { itemId, productName, amount, price } = req.body;
     // Render a page to verify the order with an address input
-    res.render('verify-order', { itemId, productName, amount, price, isUser: true,isAdmin:req.session.isAdmin });
+    res.render('verify-order', { itemId, productName, amount, price, isUser: true, isAdmin: req.session.isAdmin });
 }
 
 
@@ -103,10 +103,10 @@ exports.allOrders = async (req, res) => {
         const orders = await Order.find();
 
         // Render the page that displays all orders
-        res.render('all-orders', { orders, isUser: true ,isAdmin:req.session.isAdmin});
+        res.render('all-orders', { orders, isUser: true, isAdmin: req.session.isAdmin });
     } catch (error) {
-        console.error('Error fetching all orders:', error);
-        res.status(500).send('Internal server error');
+        next(error);
+
     }
 }
 
@@ -134,7 +134,7 @@ exports.orderAll = async (req, res) => {
         // Redirect to a success page or any other appropriate action
         res.redirect('/order/all-orders');
     } catch (error) {
-        console.error('Error ordering all items:', error);
-        res.status(500).send('Internal server error');
+        next(error);
+
     }
 };

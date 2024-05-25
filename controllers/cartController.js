@@ -5,10 +5,10 @@ exports.getItemsByUserId = async (req, res, next) => {
     try {
         const items = await Cart.find({ userId: req.session.userId }).sort({ timestamp: 1 });
         const validationErrors = req.flash('validationErrors');
-        res.render('cart', { items: items, validationErrors: validationErrors, isUser: true ,isAdmin:req.session.isAdmin});
+        res.render('cart', { items: items, validationErrors: validationErrors, isUser: true, isAdmin: req.session.isAdmin });
     } catch (err) {
-        req.flash('authError', 'An error occurred. Please try again.');
-        return res.redirect(req.body.redirectTo || '/');
+        next(err);
+
     }
 };
 
@@ -39,8 +39,8 @@ exports.postCart = async (req, res, next) => {
         // Redirect to the cart page or any other appropriate action
         res.redirect('/cart');
     } catch (error) {
-        console.error('Error adding item to cart:', error);
-        res.status(500).send('Internal server error');
+        next(error);
+
     }
 };
 
@@ -59,9 +59,8 @@ exports.postSave = async (req, res, next) => {
             res.redirect('/cart');
         }
     } catch (err) {
-        console.error('Error saving cart item:', err);
-        req.flash('authError', 'An error occurred. Please try again.');
-        res.redirect('/cart');
+        next(err);
+
     }
 };
 
@@ -73,9 +72,8 @@ exports.postDelete = async (req, res, next) => {
         await Cart.findByIdAndDelete(itemId);
         res.redirect('/cart');
     } catch (err) {
-        console.log(err);
-        req.flash('authError', 'An error occurred. Please try again.');
-        res.redirect('/cart');
+        next(err);
+
     }
 };
 
@@ -88,8 +86,8 @@ exports.saveAll = async (req, res, next) => {
         }
         res.redirect('/cart');
     } catch (error) {
-        console.error('Error saving all items:', error);
-        res.status(500).send('Internal Server Error');
+        next(error);
+
     }
 };
 
@@ -98,8 +96,8 @@ exports.deleteAll = async (req, res, next) => {
         await Cart.deleteMany({ userId: req.session.userId });
         res.redirect('/cart');
     } catch (error) {
-        console.error('Error deleting all items:', error);
-        res.status(500).send('Internal Server Error');
+        next(error);
+
     }
 };
 

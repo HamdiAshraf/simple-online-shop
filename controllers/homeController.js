@@ -14,19 +14,19 @@ exports.getProducts = async (req, res, next) => {
                 products: categories,
                 isUser: req.session.userId,
                 validationErrors: validationErrors,
-                isAdmin:req.session.isAdmin
+                isAdmin: req.session.isAdmin
             });
         } else {
             res.render('index', {
                 products: products,
                 isUser: req.session.userId,
                 validationErrors: validationErrors,
-                isAdmin:req.session.isAdmin
+                isAdmin: req.session.isAdmin
             });
         }
 
     } catch (err) {
-        console.log(err);
-        res.status(500).send('Internal Server Error');
+        next(err);
+
     }
 };
