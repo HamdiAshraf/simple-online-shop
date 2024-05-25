@@ -74,6 +74,13 @@ app.use((error, req, res, next) => {
 });
 
 
+app.use((req,res,next)=>{
+    res.status(404)
+    res.render('not-found', {
+        isUser: req.session.isUser,
+        isAdmin: false
+    })
+})
 
 
 
