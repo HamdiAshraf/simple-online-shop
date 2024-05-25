@@ -93,7 +93,7 @@ exports.submitAddress = async (req, res) => {
 exports.verifyOrder = (req, res) => {
     const { itemId, productName, amount, price } = req.body;
     // Render a page to verify the order with an address input
-    res.render('verify-order', { itemId, productName, amount, price, isUser: true });
+    res.render('verify-order', { itemId, productName, amount, price, isUser: true,isAdmin:req.session.isAdmin });
 }
 
 
@@ -103,7 +103,7 @@ exports.allOrders = async (req, res) => {
         const orders = await Order.find();
 
         // Render the page that displays all orders
-        res.render('all-orders', { orders, isUser: true });
+        res.render('all-orders', { orders, isUser: true ,isAdmin:req.session.isAdmin});
     } catch (error) {
         console.error('Error fetching all orders:', error);
         res.status(500).send('Internal server error');

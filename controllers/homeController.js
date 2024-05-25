@@ -13,13 +13,15 @@ exports.getProducts = async (req, res, next) => {
             res.render('index', {
                 products: categories,
                 isUser: req.session.userId,
-                validationErrors: validationErrors
+                validationErrors: validationErrors,
+                isAdmin:req.session.isAdmin
             });
         } else {
             res.render('index', {
                 products: products,
                 isUser: req.session.userId,
-                validationErrors: validationErrors
+                validationErrors: validationErrors,
+                isAdmin:req.session.isAdmin
             });
         }
 

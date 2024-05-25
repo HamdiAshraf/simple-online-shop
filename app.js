@@ -13,6 +13,8 @@ const productRoute = require('./routes/productRoute')
 const authRoute = require('./routes/authRoute')
 const cartRoute = require('./routes/cartRouter')
 const orderRoute = require('./routes/orderRoute')
+const adminRoute = require('./routes/adminRoute')
+
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -47,6 +49,8 @@ app.use('/product', productRoute);
 app.use('/auth', authRoute);
 app.use('/cart', cartRoute);
 app.use('/order', orderRoute);
+app.use('/admin', adminRoute);
+
 
 
 

@@ -5,7 +5,8 @@ exports.getSignup = (req, res) => {
     res.render('signup', {
         authError: req.flash('authError')[0],
         validationErrors: req.flash('validationErrors') || [],
-        isUser: req.session.userId
+        isUser: req.session.userId,
+        isAdmin: false
     });
 };
 
@@ -14,7 +15,8 @@ exports.getLogin = (req, res) => {
     res.render('login', {
         authError: req.flash('authError')[0],
         validationErrors: req.flash('validationErrors') || [],
-        isUser: req.session.userId
+        isUser: req.session.userId,
+        isAdmin: false
     });
 };
 
@@ -33,7 +35,8 @@ exports.postSignup = async (req, res, next) => {
             authError: req.flash('authError')[0],
             email: email,
             username: username,
-            isUser: req.session.userId // Pass isUser here
+            isUser: req.session.userId,
+            isAdmin: false
         });
     }
     if (!email || !password || !confirmpassword || !username) {
@@ -42,7 +45,8 @@ exports.postSignup = async (req, res, next) => {
             authError: req.flash('authError')[0],
             email: email,
             username: username,
-            isUser: req.session.userId // Pass isUser here
+            isUser: req.session.userId,
+            isAdmin: false
         });
     }
 
@@ -54,7 +58,8 @@ exports.postSignup = async (req, res, next) => {
                 authError: req.flash('authError')[0],
                 email: email,
                 username: username,
-                isUser: req.session.userId // Pass isUser here
+                isUser: req.session.userId,
+                isAdmin: false
             });
         }
 
@@ -73,7 +78,8 @@ exports.postSignup = async (req, res, next) => {
             authError: req.flash('authError')[0],
             email: email,
             username: username,
-            isUser: req.session.userId // Pass isUser here
+            isUser: req.session.userId,
+            isAdmin: false
         });
     }
 };
@@ -94,7 +100,8 @@ exports.postLogin = async (req, res, next) => {
             return res.render('login', {
                 authError: req.flash('authError')[0],
                 email: email,
-                isUser: req.session.userId // Pass isUser here
+                isUser: req.session.userId,
+                isAdmin: false
             });
         }
 
@@ -104,7 +111,8 @@ exports.postLogin = async (req, res, next) => {
             return res.render('login', {
                 authError: req.flash('authError')[0],
                 email: email,
-                isUser: req.session.userId // Pass isUser here
+                isUser: req.session.userId,
+                isAdmin: false
             });
         }
 
@@ -114,18 +122,22 @@ exports.postLogin = async (req, res, next) => {
             return res.render('login', {
                 authError: req.flash('authError')[0],
                 email: email,
-                isUser: req.session.userId // Pass isUser here
+                isUser: req.session.userId,
+                isAdmin: false
+
             });
         }
 
         req.session.userId = user._id;
+        req.session.isAdmin = user.isAdmin;
         res.redirect('/');
     } catch (err) {
         req.flash('authError', 'An error occurred. Please try again.');
         return res.render('login', {
             authError: req.flash('authError')[0],
             email: email,
-            isUser: req.session.userId // Pass isUser here
+            isUser: req.session.userId,
+            isAdmin: false
         });
     }
 };

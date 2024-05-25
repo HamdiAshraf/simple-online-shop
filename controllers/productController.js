@@ -8,7 +8,7 @@ exports.getProductById = async (req, res, next) => {
    
     const validationErrors = validationResult(req).array();
 
-    res.render('product', { product: product, validationErrors: validationErrors, isUser: req.session.userId });
+    res.render('product', { product: product, validationErrors: validationErrors, isUser: req.session.userId,isAdmin:req.session.isAdmin });
 };
 
 exports.getFirstProduct = async (req, res, next) => {
@@ -17,5 +17,5 @@ exports.getFirstProduct = async (req, res, next) => {
    y
     const validationErrors = validationResult(req).array();
 
-    res.render('product', { product: product, validationErrors: validationErrors, isUser: req.session.userId });
+    res.render('product', { product: product, validationErrors: validationErrors, isUser: req.session.userId,isAdmin:req.session.isAdmin });
 };
