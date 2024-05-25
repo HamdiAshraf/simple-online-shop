@@ -1,0 +1,41 @@
+<%- include('parts/header.ejs') %> <%- include('parts/navbar.ejs') %>
+
+<div class="container">
+  <h3 class="my-4">Products</h3>
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <% products.forEach(product => { %>
+    <div class="col">
+      <div class="card h-100">
+        <div class="ratio ratio-4x3">
+          <img
+            src="/<%= product.image %>"
+            class="card-img-top img-fluid"
+            alt="<%= product.name %>"
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= product.name %></h5>
+          <p class="card-text"><strong>Price:</strong> <%= product.price %></p>
+          <p class="card-text">
+            <strong>Category:</strong> <%= product.category %>
+          </p>
+          <p class="card-text">
+            <strong>Description:</strong> <%= product.description %>
+          </p>
+          <form action="/admin/products/<%= product._id %>" method="POST">
+            <input type="hidden" name="_method" value="DELETE" />
+            <button type="submit" class="btn btn-danger me-2">Delete</button>
+            <a
+              href="/admin/products/<%= product._id %>/edit"
+              class="btn btn-primary"
+              >Edit</a
+            >
+          </form>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+</div>
+
+<%- include('parts/footer.ejs') %>

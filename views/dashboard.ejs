@@ -1,0 +1,20 @@
+<%- include('parts/header.ejs') %>
+<%- include('parts/navbar.ejs') %>
+
+<div class="container">
+    <h3 class="my-4">Admin Dashboard</h3>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Products</div>
+                <div class="card-body">
+                    <h5 class="card-title"><%= productCount %></h5>
+                    <p class="card-text">Total number of products.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Add more dashboard cards or elements as needed -->
+    </div>
+</div>
+
+<%- include('parts/footer.ejs') %>
